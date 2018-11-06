@@ -111,7 +111,6 @@ class Txt2Img:
     def save1(self, title, lrc, filename = None):
         """netease cloud music share pic: 朱砂"""
         user = title
-        border_color = (220, 211, 196)
         text_color = (255, 255, 255)
         user_color = (213, 57, 50)
         
@@ -124,8 +123,7 @@ class Txt2Img:
 
         user_font = ImageFont.truetype(self.font_family.split('.')[0]+'bd.ttc', self.user_font_size)
         lyric_font = ImageFont.truetype(self.font_family.split('.')[0]+'bd.ttc', self.lrc_font_size)
-        lyric_w, lyric_h = ImageDraw.Draw(Image.new(mode='RGB', 
-                                        size=(1, 1))).textsize(lrc, font=lyric_font, spacing=self.line_space) # get lyric w, h
+
         user_w, user_h = ImageDraw.Draw(Image.new(mode='RGB', 
                             size=(1, 1))).textsize(user, font=user_font, spacing=self.line_space)
 
@@ -147,6 +145,54 @@ class Txt2Img:
                     fill=user_color, spacing=self.line_space)
         draw.text((left_padding, top_padding*2+user_h+text_inner_padding*2), 
                     lrc, font=lyric_font, fill=text_color, spacing=self.lrc_line_space)
+
+        self.saveImg(title, filename, out_img)
+
+    def save2(self, title, lrc, filename = None):
+        """netease cloud music share pic: 信封"""
+        user = '—— '+title
+        text_color = '#282528'
+        user_color = '#bbb8b9'
+        
+        banner_height = 20
+        top_padding = 45
+        left_padding = 45
+        bottom_padding = 200
+        text_inner_padding = 10
+
+        self.lrc_font_size -= 10
+        self.user_font_size = self.lrc_font_size
+
+        user_font = ImageFont.truetype(self.font_family, self.user_font_size)
+        lyric_font = ImageFont.truetype(self.font_family, self.lrc_font_size)
+
+        user_w, user_h = ImageDraw.Draw(Image.new(mode='RGB', 
+                            size=(1, 1))).textsize(user, font=user_font, spacing=self.line_space)
+
+        lrc_rows = len(lrc.split('\n'))
+
+        w = self.share_img_width - 400
+
+        h = banner_height + top_padding + self.lrc_font_size * lrc_rows + lrc_rows * self.lrc_line_space + user_h + bottom_padding
+
+        out_img = Image.new(mode='RGB', size=(w, h), color='#fffeff')
+        draw = ImageDraw.Draw(out_img)
+        
+        # add background
+        pic_top = Image.open('res/netease_cloud_music_style2_top.png')
+        pic_right = Image.open('res/netease_cloud_music_style2_right.png')
+
+        for x in range(int(math.ceil(w/pic_top.size[0]))):
+            out_img.paste(pic_top, (x*pic_top.size[0]-15, 0))
+        
+        out_img.paste(pic_right, (w-pic_right.size[0], banner_height*2))
+
+        # text
+        draw.text((left_padding, banner_height + top_padding), 
+                    lrc, font=lyric_font, fill=text_color, spacing=self.lrc_line_space)
+
+        draw.text((w-left_padding-user_w, h-bottom_padding), user, font=user_font, 
+                    fill=user_color, spacing=self.line_space)
 
         self.saveImg(title, filename, out_img)
 
@@ -201,6 +247,8 @@ def main():
             img.save(user, text.replace('\\n', '\n'), out_img_name)
         elif pic_style == 2:
             img.save1(user, text.replace('\\n', '\n'), out_img_name)
+        elif pic_style == 3:
+            img.save2(user, text.replace('\\n', '\n'), out_img_name)
     else:
         print('input -h/--help option for help')
 
