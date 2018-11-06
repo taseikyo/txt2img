@@ -158,7 +158,6 @@ class Txt2Img:
         top_padding = 45
         left_padding = 45
         bottom_padding = 200
-        text_inner_padding = 10
 
         self.lrc_font_size -= 10
         self.user_font_size = self.lrc_font_size
@@ -195,6 +194,52 @@ class Txt2Img:
                     fill=user_color, spacing=self.line_space)
 
         self.saveImg(title, filename, out_img)
+
+    def save3(self, title, lrc, filename = None):
+        """netease cloud music share pic: 古书"""
+        user, song  = title.split('·')
+        text_color = '#282528'
+        user_color = '#000'
+        
+        top_padding = 45
+        left_padding = 45
+        bottom_padding = 200
+        circle_h = 20
+
+        user_font = ImageFont.truetype(self.font_family.split('.')[0]+'bd.ttc', self.user_font_size)
+        lyric_font = ImageFont.truetype(self.font_family, self.lrc_font_size)
+
+        lyric_w, lyric_h = ImageDraw.Draw(Image.new(mode='RGB', 
+                            size=(1, 1))).textsize(song, font=lyric_font, spacing=self.line_space)
+
+        user_w, user_h = ImageDraw.Draw(Image.new(mode='RGB', 
+                            size=(1, 1))).textsize(user, font=user_font, spacing=self.line_space)
+
+        lrc_rows = len(lrc.split('\n'))
+
+        w = self.share_img_width - 400
+
+        h = top_padding + user_h + circle_h + self.lrc_line_space*2 + top_padding + self.lrc_font_size * (1 + lrc_rows) + (lrc_rows - 1) * self.lrc_line_space +  bottom_padding
+
+        out_img = Image.new(mode='RGB', size=(w, h), color='#fff')
+        draw = ImageDraw.Draw(out_img)
+
+        # circle
+        draw.arc((left_padding, top_padding+user_h+self.lrc_line_space+circle_h, left_padding+circle_h, top_padding+user_h+self.lrc_line_space+circle_h*2),
+                    -360, 0, fill = (213, 57, 50), width=7)
+
+        # text
+        draw.text((left_padding, top_padding), user, font=user_font, 
+                    fill=user_color, spacing=self.line_space)
+
+        draw.text((left_padding, top_padding+user_h+self.line_space*2+circle_h), song, font=lyric_font, 
+                    fill=text_color, spacing=self.line_space)
+
+        draw.text((left_padding, top_padding+user_h+self.line_space*2+circle_h+lyric_h+top_padding), 
+                    lrc, font=lyric_font, fill=text_color, spacing=self.lrc_line_space)
+
+        self.saveImg(title, filename, out_img)
+
 
     def saveImg(self, user, filename, out_img):
         """save out_img object to local disk"""
@@ -249,6 +294,8 @@ def main():
             img.save1(user, text.replace('\\n', '\n'), out_img_name)
         elif pic_style == 3:
             img.save2(user, text.replace('\\n', '\n'), out_img_name)
+        elif pic_style == 4:
+            img.save3(user, text.replace('\\n', '\n'), out_img_name)
     else:
         print('input -h/--help option for help')
 

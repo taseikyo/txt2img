@@ -62,6 +62,18 @@ python txt2img.py -t 3 -w "我曾难自拔于世界之大\n也沉溺于其中梦
 	<img src="img/我的一个道姑朋友·三个糙汉一个软妹组0.png" alt="我的一个道姑朋友·三个糙汉一个软妹组0.png" title="我的一个道姑朋友·三个糙汉一个软妹组" width="420">
 </div>
 
+4. Netease Cloud Music Style 3 网易云音乐样式：古书
+
+please contain '\n' in your lyric, I won't cut your lyric. <br>
+请自行在输入的歌词中包含回车，在这个样式中我去掉了上述的分割功能。
+```
+python txt2img.py -t 4 -w "我曾难自拔于世界之大\n也沉溺于其中梦话\n不得真假 不做挣扎 不惧笑话\n我曾将青春翻涌成她\n也曾指尖弹出盛夏\n心之所动 且就随缘去吧" -u "起风了·买辣椒也用券"
+```
+<div align="center">
+	<img src="img/起风了·买辣椒也用券1.png" alt="起风了·买辣椒也用券1.png" title="起风了·买辣椒也用券" width="420">
+	<img src="img/我的一个道姑朋友·三个糙汉一个软妹组1.png" alt="我的一个道姑朋友·三个糙汉一个软妹组1.png" title="我的一个道姑朋友·三个糙汉一个软妹组" width="420">
+</div>
+
 ### Preferences
 - https://github.com/Urinx/NeteaseLyric
 - https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/0014320027235877860c87af5544f25a8deeb55141d60c5000
