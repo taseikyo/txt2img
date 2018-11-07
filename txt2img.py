@@ -13,7 +13,8 @@ import math
 
 class Txt2Img:
     """Share your text as a image"""
-    def __init__(self, out_img_name, font_family, save_dir):
+    def __init__(self, img_file, out_img_name, font_family, save_dir):
+        self.img_file = img_file
         self.out_img_name = out_img_name
         self.font_family = font_family
         self.save_dir = save_dir
@@ -21,7 +22,6 @@ class Txt2Img:
         self.lrc_font_size = 30
         self.line_space = 30 
         self.lrc_line_space = 15
-        self.text_color = '#fff'
         self.stroke = 5 
         self.share_img_width = 1080
 
@@ -240,6 +240,40 @@ class Txt2Img:
 
         self.saveImg(title, filename, out_img)
 
+    def save4(self, title, lrc, filename = None):
+        """bili wall paper: lighth/dark"""
+        user = '——「' + title + '」'
+        if self.img_file[-5] == 't':
+            text_color = (74, 69, 99)
+            bottom_padding = 1020
+            left_padding = 150
+        else:
+            text_color = (255, 255, 255)
+            bottom_padding = 920
+            left_padding = 120
+        
+        top_padding = 650
+
+        self.lrc_font_size += 20
+
+        print(self.font_family)
+
+        user_font = ImageFont.truetype(self.font_family, self.user_font_size)
+        lyric_font = ImageFont.truetype(self.font_family, self.lrc_font_size)
+
+        user_w, user_h = ImageDraw.Draw(Image.new(mode='RGB', 
+                            size=(1, 1))).textsize(user, font=user_font, spacing=self.line_space)
+
+        out_img = Image.open(self.img_file)
+
+        draw = ImageDraw.Draw(out_img)
+
+        # text
+        draw.text((left_padding, top_padding), lrc, font=lyric_font, fill=text_color, spacing=self.lrc_line_space+20)
+
+        draw.text((out_img.size[0]-user_w-left_padding, out_img.size[1] - bottom_padding), user, font=user_font, fill=text_color)
+
+        self.saveImg(title, filename, out_img)
 
     def saveImg(self, user, filename, out_img):
         """save out_img object to local disk"""
@@ -287,7 +321,7 @@ def main():
             out_img_name = 'Anonymous'
         if img_file is None:
             img_file = 'res/sundayday.jpg'
-        img = Txt2Img(out_img_name, font_family, save_dir = 'img')
+        img = Txt2Img(img_file, out_img_name, font_family, save_dir = 'img')
         if pic_style == 1:
             img.save(user, text.replace('\\n', '\n'), out_img_name)
         elif pic_style == 2:
@@ -296,6 +330,8 @@ def main():
             img.save2(user, text.replace('\\n', '\n'), out_img_name)
         elif pic_style == 4:
             img.save3(user, text.replace('\\n', '\n'), out_img_name)
+        elif pic_style == 5:
+            img.save4(user, text.replace('\\n', '\n'), out_img_name)
     else:
         print('input -h/--help option for help')
 
