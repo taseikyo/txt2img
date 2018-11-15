@@ -6,7 +6,7 @@
 # @Version : Python3.7
 
 import os
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import optparse
 import re
 import math
@@ -275,6 +275,67 @@ class Txt2Img:
 
         self.saveImg(title, filename, out_img)
 
+    def save5(self, title, lrc, filename = None):
+        """netease cloud music share pic: 歌单"""
+        user = title
+        text_color = '#fff'
+        user_color = '#fff'
+        
+        top_padding = 140
+        left_padding = 50
+        pic_width = 650
+        pic_padding = 20
+
+        bottom_padding = 120
+
+        self.user_font_size += 15
+        self.lrc_font_size += 10
+
+        user_font = ImageFont.truetype(self.font_family.split('.')[0]+'bd.ttc', self.user_font_size)
+        lyric_font = ImageFont.truetype(self.font_family, self.lrc_font_size)
+
+        user_w, user_h = ImageDraw.Draw(Image.new(mode='RGB', 
+                            size=(1, 1))).textsize(user, font=user_font, spacing=self.line_space)
+
+        lrc_rows = len(lrc.split('\n'))
+
+        # load pic
+        pic = Image.open(self.img_file)
+
+        pw, ph = pic.size
+
+        resize_pic = pic.resize((pic_width, pic_width*ph//pw), resample=3)
+
+        rw, rh = resize_pic.size
+
+        w = self.share_img_width
+
+        out_img = pic.filter(ImageFilter.GaussianBlur(60)).resize((w, 1920 if w*ph//pw < 1920 else w*ph//pw), resample=3)
+        # out_img = pic.filter(ImageFilter.GaussianBlur(100)).resize((w, w*ph//pw), resample=3)
+
+        ow, oh = out_img.size
+
+        print(out_img.size)
+
+        draw = ImageDraw.Draw(out_img)
+
+        h = top_padding + rh + pic_padding + user_h + pic_padding + self.lrc_font_size * lrc_rows + lrc_rows * self.lrc_line_space + bottom_padding
+        
+        # paste pic
+        out_img.paste(resize_pic, ((w-rw)//2, top_padding))
+
+        draw.line(((w-user_w)//2, top_padding + rh + pic_padding + user_h + 10, (w+user_w)//2, top_padding + rh + pic_padding + user_h + 10), 
+            fill=user_color)
+
+        # text
+        draw.text(((w-user_w)//2, top_padding + rh + pic_padding), user, font=user_font, 
+                    fill=user_color, spacing=self.line_space)
+
+        draw.text((left_padding, top_padding + rh + pic_padding + user_h + pic_padding*2), 
+                    lrc, font=lyric_font, fill=text_color, spacing=self.lrc_line_space)
+
+        self.saveImg(title, filename, out_img)
+
     def saveImg(self, user, filename, out_img):
         """save out_img object to local disk"""
         img_save_path = ''
@@ -332,6 +393,8 @@ def main():
             img.save3(user, text.replace('\\n', '\n'), out_img_name)
         elif pic_style == 5:
             img.save4(user, text.replace('\\n', '\n'), out_img_name)
+        elif pic_style == 6:
+            img.save5(user, text.replace('\\n', '\n'), out_img_name)
     else:
         print('input -h/--help option for help')
 

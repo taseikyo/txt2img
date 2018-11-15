@@ -84,6 +84,16 @@ python txt2img.py -t 5 -i "res/bili_dark.jpg" -f "res/hylxj.ttf" -w "你瞧这�
 	<img src="img/神雕侠侣0.png" alt="神雕侠侣0" title="神雕侠侣0" width="420">
 </div>
 
+5. Netease Cloud Music Style 4 网易云音乐样式：磨砂
+
+```
+python txt2img.py -t 6 -w "屋一间 窗半掩 爱和恨 穿针 引线， \n灯一盏 热汤一碗 岁月平淡 转眼 又过去一年， \n你的肩膀是屋檐 双手圈出 世界边缘， \n春雨 秋霜 夏蝉 掌心摩挲成茧 捧出一汪甘泉， \n神摧毁通天塔 只留下一个密码， \n名字叫做妈妈， \n这个音节统领了 所有动情的回答，孤单时念出它， \n希望过 失望过 潮起潮落 尝尽苦涩， \n哭喊过 挣扎过 心有灯火 微弱闪烁， \n不知我者 一笑而过， \n但知你如我 辗转反侧 心难割舍， \n好多话 开口变沙哑， \n黄沙 迎朝霞 百里荒漠 怒放出鲜花， \n所有 尖锐的都变铠甲 风很大 雨很急路很滑 请你保护她， \n等我 长大 等我 再回家 为你 梳理 白发。" -u "悲伤逆流成河" -i res/悲伤逆流成河.jpg
+python txt2img.py -t 6 -w "有人浅薄 \nSome of us get dipped in flat \n有些人金玉其外 \nsome in satin \n而败絮其中 \nsome in gloss \n有一天你会遇到一个 \nBut evry once in a while \n彩虹般绚丽的人 \nyou find someone who's indescent \n当你遇到这个人以后 \nand when you do, \n会觉得其他人只是浮云而已 \nnothing will ever compare" -u "怦然心动" -i res/怦然心动.jpg
+```
+<div align="center">
+	<img src="img/悲伤逆流成河.png" alt="悲伤逆流成河.png" title="悲伤逆流成河" width="420">
+	<img src="img/怦然心动.png" alt="怦然心动" title="怦然心动" width="420">
+</div>
 
 ### Preferences
 - https://github.com/Urinx/NeteaseLyric
