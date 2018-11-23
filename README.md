@@ -1,5 +1,5 @@
 ## txt2img
-:stars:Share your text as a image.<br> 
+:stars:Share your text as an image.<br> 
 :stars:将你中意的文字分享为多种样式的图片.
 
 ### How to use
