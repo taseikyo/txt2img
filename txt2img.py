@@ -315,8 +315,6 @@ class Txt2Img:
 
         ow, oh = out_img.size
 
-        print(out_img.size)
-
         draw = ImageDraw.Draw(out_img)
 
         h = top_padding + rh + pic_padding + user_h + pic_padding + self.lrc_font_size * lrc_rows + lrc_rows * self.lrc_line_space + bottom_padding
@@ -336,20 +334,57 @@ class Txt2Img:
 
         self.saveImg(title, filename, out_img)
 
+    def save6(self, lrc, filename = None):
+        """film style"""
+        text_color = '#fff'
+
+        self.lrc_font_size = 42
+
+        lyric_font = ImageFont.truetype(self.font_family, self.lrc_font_size)
+
+        lyric_w, lyric_h = ImageDraw.Draw(Image.new(mode='RGB', 
+                        size=(1, 1))).textsize(lrc, font=lyric_font, spacing=self.line_space) # get lyric w, h
+
+        # load pic
+        pic = Image.open(self.img_file)
+
+        pw, ph = pic.size
+
+        if pw < 1920:
+            pic = pic.resize((1920, 1920*ph//pw), resample=3)
+            pw, ph = pic.size
+
+        w, h = pw, int(ph*1.24)
+
+        out_img = Image.new(mode='RGB', size=(w, h), color=(0, 0, 0))
+        draw = ImageDraw.Draw(out_img)
+
+        # paste pic
+        out_img.paste(pic, (0, int(ph*0.12)))
+
+        # text
+        padding = 10 # (ph*0.12-lyric_h)//2
+        draw.text(((w-lyric_w)//2, int(ph*1.12) + padding), 
+                    lrc, font=lyric_font, fill=text_color, spacing=self.lrc_line_space)
+
+        self.saveImg(None, os.path.basename(self.img_file).split('.')[0], out_img)
+
     def saveImg(self, user, filename, out_img):
         """save out_img object to local disk"""
         img_save_path = ''
         i = 0
         if filename:
-            img_save_path = self.save_dir + '/' + filename + '.png'
+            img_save_path = f'{self.save_dir}/{filename}.png'
             while os.path.exists(img_save_path):
-                img_save_path = self.save_dir + '/' + filename + str(i) + '.png'
+                img_save_path = f'{self.save_dir}/{filename}{str(i)}.png'
                 i += 1
         elif user:
-            img_save_path = self.save_dir + '/' + user + '.png'
+            img_save_path = f'{self.save_dir}/{user}.png'
             while os.path.exists(img_save_path):
-                img_save_path= self.save_dir + '/' + user + str(i) + '.png'
+                img_save_path= f'{self.save_dir}/{user}{str(i)}.png'
                 i += 1
+        else:
+            img_save_path = f'{self.save_dir}/{self.out_img_name}' 
         print('generated images path:', img_save_path)
         out_img.save(img_save_path)
 
@@ -395,6 +430,8 @@ def main():
             img.save4(user, text.replace('\\n', '\n'), out_img_name)
         elif pic_style == 6:
             img.save5(user, text.replace('\\n', '\n'), out_img_name)
+        elif pic_style == 7:
+            img.save6(text.replace('\\n', '\n'), out_img_name)
     else:
         print('input -h/--help option for help')
 
