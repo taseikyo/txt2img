@@ -104,8 +104,8 @@ python txt2img.py -t 7 -w "不是华北之大容不下一张平静的课桌，�
 危亡了，我们要去当兵。" -i res\无问西东.png
 ```
 <div align="center">
-	<img src="img/MoonBox.png" alt="MoonBox.png" title="月光宝盒" height="600">
-	<img src="img/无问西东.png" alt="无问西东" title="无问西东" height="600">
+	<img src="img/MoonBox.png" alt="MoonBox.png" title="月光宝盒">
+	<img src="img/无问西东.png" alt="无问西东" title="无问西东">
 </div>
 
 ### References
