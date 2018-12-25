@@ -97,9 +97,11 @@ python txt2img.py -t 6 -w "有人浅薄 \nSome of us get dipped in flat \n有些
 
 7. Film Style：电影台词样式
 
+The image size should be (840 * 1920) or proportional to it. <br>
+图片的尺寸应该是(840 * 1920)，或者与该尺寸成比例也行(420 * 960)
 ```
-python txt2img.py -t 7 -w "不是华北之大容不下一张平静的课桌，而是整个国家都
-危亡了，我们要去当兵。" -i res\无问西东.png
+python txt2img.py -t 7 -w "我的意中人是个盖世英雄，有一天他会踩着七色云彩来
+娶我，我猜中了前头可我猜不着这结局。" -i  res\MoonBox.png
 python txt2img.py -t 7 -w "不是华北之大容不下一张平静的课桌，而是整个国家都
 危亡了，我们要去当兵。" -i res\无问西东.png
 ```
