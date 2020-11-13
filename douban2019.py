@@ -47,10 +47,10 @@ def douban2019(text, user, ss_name, out_img_name, font_family):
     out_img = Image.new(mode="RGB", size=(w, h), color=(255, 255, 255))
     draw = ImageDraw.Draw(out_img)
 
-    bg_img = Image.open("res/file-1575626352.png")
+    bg_img = Image.open("assets/file-1575626352.png")
     out_img.paste(bg_img, (0, 0))
 
-    pen_img = Image.open("res/file-1575626423.png")
+    pen_img = Image.open("assets/file-1575626423.png")
     pen_w = 80
     pen_h = pen_img.size[1] * pen_w // pen_img.size[0]
     pen_img = pen_img.resize((pen_w, pen_h), resample=3)
@@ -59,7 +59,7 @@ def douban2019(text, user, ss_name, out_img_name, font_family):
     icon_w = 18
     icon_x = padding + pen_w
     icon_y = padding
-    icon_img = Image.open("res/douban-icon.png").resize((icon_w, icon_w), resample=3)
+    icon_img = Image.open("assets/douban-icon.png").resize((icon_w, icon_w), resample=3)
     out_img.paste(icon_img, (icon_x, icon_y), mask=icon_img)
 
 
@@ -119,7 +119,7 @@ def main():
         if not song_singer_name:
             song_singer_name = "Anonymous"
         if not font_family:
-            font_family = "res/msyh.ttc"
+            font_family = "assets/msyh.ttc"
 
         douban2019(text, user, song_singer_name, out_img_name, font_family)
     else:
