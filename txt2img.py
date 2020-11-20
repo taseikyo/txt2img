@@ -542,6 +542,54 @@ class Txt2Img:
 
         self.save_img(out_img)
 
+    def save8(self, title, lrc):
+        """网易云热评1"""
+        text_color = (255, 255, 255)
+
+        top_padding = 780
+        left_padding = 120
+        bottom_padding = 1230
+
+        self.user_font_size -= 10
+        user_font = ImageFont.truetype(
+            self.font_family.split(".")[0] + ".ttc", self.user_font_size
+        )
+        user_w, user_h = ImageDraw.Draw(Image.new(mode="RGB", size=(1, 1))).textsize(
+            title, font=user_font, spacing=self.line_space
+        )
+        self.lrc_font_size += 40
+        lyric_font = ImageFont.truetype(
+            self.font_family.split(".")[0] + "bd.ttc", self.lrc_font_size
+        )
+
+        out_img = Image.open(self.img_file)
+        draw = ImageDraw.Draw(out_img)
+        ow, oh = out_img.size
+        # lyric
+        draw.text(
+            (left_padding, top_padding),
+            lrc,
+            font=lyric_font,
+            fill=text_color,
+            spacing=self.lrc_line_space,
+        )
+        # singer<song>
+        draw.text(
+            (left_padding+15, oh-bottom_padding),
+            "来自网易云音乐——",
+            font=user_font,
+            fill=text_color,
+            spacing=self.lrc_line_space,
+        )
+        draw.text(
+            (left_padding+15, oh-bottom_padding+user_h),
+            f"{title}下方评论",
+            font=user_font,
+            fill=text_color,
+            spacing=self.lrc_line_space,
+        )
+        self.save_img(out_img)
+
     def save_img(self, out_img):
         """save out_img object to local disk"""
         img_save_path = (
@@ -601,6 +649,8 @@ def main():
     if text:
         if not img_file:
             img_file = "assets/sundayday.jpg"
+        if not user:
+            user = "taseikyo"
 
         # image will be saved as img/{out_img_name}
         img = Txt2Img(img_file, out_img_name, font_family, save_dir="img")
@@ -619,6 +669,9 @@ def main():
             img.save6(user, text.replace("\\n", "\n"))
         elif pic_style == 7:
             img.save7(text.replace("\\n", "\n"))
+        elif pic_style == 8:
+            img.img_file = "assets/1605836027664.png"
+            img.save8(user, text.replace("\\n", "\n"))
     else:
         print("input -h/--help option for help")
 
