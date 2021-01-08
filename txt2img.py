@@ -10,12 +10,13 @@
 """
 
 
-import os
-import re
 import math
 import optparse
+import os
+import re
 import textwrap
-from PIL import Image, ImageDraw, ImageFont, ImageFilter
+
+from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 
 class Txt2Img:
@@ -557,7 +558,7 @@ class Txt2Img:
         user_w, user_h = ImageDraw.Draw(Image.new(mode="RGB", size=(1, 1))).textsize(
             title, font=user_font, spacing=self.line_space
         )
-        self.lrc_font_size += 40
+        self.lrc_font_size += 15
         lyric_font = ImageFont.truetype(
             self.font_family.split(".")[0] + "bd.ttc", self.lrc_font_size
         )
@@ -575,14 +576,14 @@ class Txt2Img:
         )
         # singer<song>
         draw.text(
-            (left_padding+15, oh-bottom_padding),
+            (left_padding + 15, oh - bottom_padding),
             "来自网易云音乐——",
             font=user_font,
             fill=text_color,
             spacing=self.lrc_line_space,
         )
         draw.text(
-            (left_padding+15, oh-bottom_padding+user_h),
+            (left_padding + 15, oh - bottom_padding + user_h),
             f"{title}下方评论",
             font=user_font,
             fill=text_color,
@@ -629,7 +630,10 @@ def main():
     parser.add_option("-w", dest="text", type="string", help="some text you like")
     parser.add_option("-u", dest="user", type="string", help="user name/title")
     parser.add_option(
-        "-o", dest="out_img_name", type="string", help="generated images name",
+        "-o",
+        dest="out_img_name",
+        type="string",
+        help="generated images name",
     )
 
     (options, args) = parser.parse_args()
