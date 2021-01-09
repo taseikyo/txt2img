@@ -13,12 +13,13 @@
 至于为什么不在 txt2img.py 上继续添加 感觉那代码写得太垃圾了...
 """
 
-import os
-import re
 import math
 import optparse
+import os
+import re
 import textwrap
-from PIL import Image, ImageDraw, ImageFont, ImageFilter
+
+from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 
 def douban2019(text, user, ss_name, out_img_name, font_family):
@@ -62,7 +63,6 @@ def douban2019(text, user, ss_name, out_img_name, font_family):
     icon_img = Image.open("assets/douban-icon.png").resize((icon_w, icon_w), resample=3)
     out_img.paste(icon_img, (icon_x, icon_y), mask=icon_img)
 
-
     text_x = icon_x
     text_y = icon_y + icon_w * 2
 
@@ -72,17 +72,31 @@ def douban2019(text, user, ss_name, out_img_name, font_family):
     lines = textwrap.wrap(text, width=22)
     for line in lines:
         width, height = text_font.getsize(line)
-        draw.text((text_x, text_y), line, font=text_font, fill=text_color, spacing=text_line_space)
+        draw.text(
+            (text_x, text_y),
+            line,
+            font=text_font,
+            fill=text_color,
+            spacing=text_line_space,
+        )
         text_y += height + pen_padding * 2
 
     user = f"—— {user}"
     user_y = text_y + padding
     user_x = share_img_width - padding - text_font.getsize(user)[0]
-    draw.text((user_x, user_y), user, font=text_font, fill=text_color, spacing=text_line_space)
+    draw.text(
+        (user_x, user_y), user, font=text_font, fill=text_color, spacing=text_line_space
+    )
 
     ss_name_y = text_y + padding + text_font.getsize(user)[1] + pen_padding
     ss_name_x = share_img_width - padding - text_font.getsize(ss_name)[0]
-    draw.text((ss_name_x, ss_name_y), ss_name, font=text_font, fill=text_color, spacing=text_line_space)
+    draw.text(
+        (ss_name_x, ss_name_y),
+        ss_name,
+        font=text_font,
+        fill=text_color,
+        spacing=text_line_space,
+    )
 
     out_img.save(out_img_name)
 
@@ -97,7 +111,10 @@ def main():
         "-s", dest="song_singer_name", type="string", help="song name & singer"
     )
     parser.add_option(
-        "-o", dest="out_img_name", type="string", help="generated image name",
+        "-o",
+        dest="out_img_name",
+        type="string",
+        help="generated image name",
     )
     parser.add_option(
         "-f", dest="font_family", type="string", help="truetype font file path"

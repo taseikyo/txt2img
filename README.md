@@ -1,10 +1,26 @@
-## txt2img
+# txt2img
 
 :stars:将你喜欢的文字分享为多种样式的图片
 
-注意，本脚本不负责将**自动换行**，所以过长文本会超出图片，所以自己做好换行。另外，使用前记得解压缩 `assets/fonts.7z` 字体包。
+注意，本脚本不负责**自动换行**，所以过长文本会超出图片，所以自己做好换行。另外，使用前记得解压缩 `assets/fonts.7z` 字体包。
 
-### How to use
+## Table of Contents
+
+- [How to use](#how-to-use)
+- [Preview and Examples](#preview-and-examples)
+	- [1. MI Note 小米便签](#1-mi-note-小米便签)
+	- [2. 网易云音乐样式：朱砂](#2-netease-cloud-music-style-1-网易云音乐样式朱砂)
+	- [3. 网易云音乐样式：信封](#3-netease-cloud-music-style-2-网易云音乐样式信封)
+	- [4. 网易云音乐样式：古书](#4-netease-cloud-music-style-3-网易云音乐样式古书)
+	- [5. 网易云音乐样式：磨砂](#5-netease-cloud-music-style-4-网易云音乐样式磨砂)
+	- [6. bilibili wall paper 哔哩哔哩壁纸(白/黑)](#6-bilibili-wall-paper-哔哩哔哩壁纸白黑)
+	- [7. Film Style：电影台词样式](#7-film-style电影台词样式)
+	- [8. 豆瓣 2019 年度读书榜单书签](#8-豆瓣-2019-年度读书榜单书签)
+	- [9. 网易云热评壁纸](#9-网易云热评壁纸)
+	- [10. 铁 five 壁纸](#10-铁-five-壁纸)
+- [References](#references)
+
+## How to use
 
 ```Bash
 >> git clone https://github.com/taseikyo/txt2img.git
@@ -25,53 +41,53 @@ Options:
   -o OUT_IMG_NAME  generated images name
 ```
 
-### Preview and Examples
+## Preview and Examples
 
-1. MI Note 小米便签
+### 1. MI Note 小米便签
 
 ```Bash
 >> python txt2img.py -w "我是天空里的一片云\n偶尔投影在你的波心\n你不必讶异\n更无须欢喜\n在转瞬间消灭了踪影\n\n你我相逢在黑夜的海上\n你有你的，我有我的，方向\n你记得也好\n最好你忘掉\n在这交会时互放的光亮\n" -u "徐志摩 《偶然》"
 ```
 
 <div align="center">
-	<img src="img/t1-1.jpg" width="420">
-	<img src="img/t1-2.jpg" width="420">
+	<img src="img/t1-1.jpg">
+	<img src="img/t1-2.jpg">
 </div>
 
-2. Netease Cloud Music Style 1 网易云音乐样式：朱砂
+### 2. Netease Cloud Music Style 1 网易云音乐样式：朱砂
 
 ```Bash
 >> python txt2img.py -t 2 -w "我曾难自拔于世界之大\n也沉溺于其中梦话\n不得真假 不做挣扎 不惧笑话\n我曾将青春翻涌成她\n也曾指尖弹出盛夏\n心之所动 且就随缘去吧" -u "起风了·买辣椒也用券"
 ```
 
 <div align="center">
-	<img src="img/t2-1.jpg" width="420">
-	<img src="img/t2-2.jpg" width="420">
+	<img src="img/t2-1.jpg">
+	<img src="img/t2-2.jpg">
 </div>
 
-3. Netease Cloud Music Style 2 网易云音乐样式：信封
+### 3. Netease Cloud Music Style 2 网易云音乐样式：信封
 
 ```Bash
 >> python txt2img.py -t 3 -w "我曾难自拔于世界之大\n也沉溺于其中梦话\n不得真假 不做挣扎 不惧笑话\n我曾将青春翻涌成她\n也曾指尖弹出盛夏\n心之所动 且就随缘去吧" -u "起风了·买辣椒也用券"
 ```
 
 <div align="center">
-	<img src="img/t3-1.jpg" width="420">
-	<img src="img/t3-2.jpg" width="420">
+	<img src="img/t3-1.jpg">
+	<img src="img/t3-2.jpg">
 </div>
 
-4. Netease Cloud Music Style 3 网易云音乐样式：古书
+### 4. Netease Cloud Music Style 3 网易云音乐样式：古书
 
 ```Bash
 >> python txt2img.py -t 4 -w "我曾难自拔于世界之大\n也沉溺于其中梦话\n不得真假 不做挣扎 不惧笑话\n我曾将青春翻涌成她\n也曾指尖弹出盛夏\n心之所动 且就随缘去吧" -u "起风了·买辣椒也用券"
 ```
 
 <div align="center">
-	<img src="img/t4-1.jpg" width="420">
-	<img src="img/t4-2.jpg" width="420">
+	<img src="img/t4-1.jpg">
+	<img src="img/t4-2.jpg">
 </div>
 
-5. Netease Cloud Music Style 4 网易云音乐样式：磨砂
+### 5. Netease Cloud Music Style 4 网易云音乐样式：磨砂
 
 ```Bash
 >> python txt2img.py -t 5 -w "屋一间 窗半掩 爱和恨 穿针 引线，\n灯一盏 热汤一碗 岁月平淡 转眼 又过去一年，\n你的肩膀是屋檐 双手圈出 世界边缘，\n春雨 秋霜 夏蝉 掌心摩挲成茧 捧出一汪甘泉，\n神摧毁通天塔 只留下一个密码，\n名字叫做妈妈，\n这个音节统领了 所有动情的回答，孤单时念出它，\n希望过 失望过 潮起潮落 尝尽苦涩，\n哭喊过 挣扎过 心有灯火 微弱闪烁，\n不知我者 一笑而过，\n但知你如我 辗转反侧 心难割舍，\n好多话 开口变沙哑，\n黄沙 迎朝霞 百里荒漠 怒放出鲜花，\n所有 尖锐的都变铠甲 风很大 雨很急路很滑 请你保护她，\n等我 长大 等我 再回家 为你 梳理 白发。" -u "悲伤逆流成河" -i assets/悲伤逆流成河.jpg
@@ -80,11 +96,11 @@ Options:
 ```
 
 <div align="center">
-	<img src="img/t5-1.jpg" width="420">
-	<img src="img/t5-2.jpg" width="420">
+	<img src="img/t5-1.jpg">
+	<img src="img/t5-2.jpg">
 </div>
 
-6. bilibili wall paper 哔哩哔哩壁纸(白/黑)
+### 6. bilibili wall paper 哔哩哔哩壁纸(白/黑)
 
 Original image: https://weibo.com/p/1006062854077297
 
@@ -95,11 +111,11 @@ Original image: https://weibo.com/p/1006062854077297
 ```
 
 <div align="center">
-	<img src="img/t6-1.jpg" width="420">
-	<img src="img/t6-2.jpg" width="420">
+	<img src="img/t6-1.jpg">
+	<img src="img/t6-2.jpg">
 </div>
 
-7. Film Style：电影台词样式
+### 7. Film Style：电影台词样式
 
 图片的尺寸应该是(840 * 1920)，或者与该尺寸成比例也行(420 * 960)
 
@@ -109,13 +125,13 @@ Original image: https://weibo.com/p/1006062854077297
 ```
 
 <div align="center">
-	<img src="img/t7-1.jpg" width="420">
-	<img src="img/t7-2.jpg" width="420">
+	<img src="img/t7-1.jpg">
+	<img src="img/t7-2.jpg">
 </div>
 
-8. 豆瓣2019年度读书榜单书签
+### 8. 豆瓣 2019 年度读书榜单书签
 
-参考 [豆瓣2019年度读书榜单](https://book.douban.com/annual/2019) 书签样式 :3
+参考 [豆瓣 2019 年度读书榜单](https://book.douban.com/annual/2019) 书签样式 :3
 
 ```Bash
 >> python douban2019.py -w "我会一直想你 但绝对不会找你 不会再重蹈覆辙 更不会再掉进你的深渊 或许我会回头看 但我绝对不会往回走" -u 我怀疑这奇遇只是恶作剧 -s 陈雪凝<别再靠近我了>
@@ -125,12 +141,35 @@ Original image: https://weibo.com/p/1006062854077297
 	<img src="img/douban2019.jpg">
 </div>
 
-### References
+### 9. 网易云热评壁纸
+
+```Bash
+>> python txt2img.py -t 8 -w "生而平凡的我们，悲哀到竟连只要平凡\n这样简单的愿望有时都难以实现。" -u "张杰 / 张碧晨：《只要平凡》"
+```
+
+<div align="center">
+	<img src="img/t8-1.png">
+</div>
+
+### 10. 铁 five 壁纸
+
+分为手机和电脑壁纸两种，在脚本中修改设置，如字体、宽高、颜色、位置等等。
+
+```Bash
+>> python kuan.py
+```
+
+<div align="center">
+	<img src="img/t10-1.png">
+	<img src="img/t10-2.png">
+</div>
+
+## References
 
 - https://github.com/Urinx/NeteaseLyric
 - https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/0014320027235877860c87af5544f25a8deeb55141d60c5000
 - https://pillow.readthedocs.io/en/latest/handbook/tutorial.html
 
-### LICENSE
+## LICENSE
 
 Copyright (c) 2018 Lewis Tian. Licensed under the MIT license.
